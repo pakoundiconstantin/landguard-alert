@@ -110,12 +110,18 @@ function PageAuth() {
       return;
     }
 
-    const { data: roleAttribue, error: erreurInit } = await supabase.rpc("initialiser_compte", {
+    const argsInit: {
+      _nom_complet: string;
+      _fonction?: string;
+      _prefecture?: string;
+      _role?: "administrateur" | "cadastre" | "tribunal" | "consultation";
+    } = {
       _nom_complet: parsed.data.nomComplet,
-      _fonction: parsed.data.fonction || undefined,
-      _prefecture: prefecture || undefined,
       _role: role as "administrateur" | "cadastre" | "tribunal" | "consultation",
-    });
+    };
+    if (parsed.data.fonction) argsInit._fonction = parsed.data.fonction;
+    if (prefecture) argsInit._prefecture = prefecture;
+    const { data: roleAttribue, error: erreurInit } = await supabase.rpc("initialiser_compte", argsInit);
 
     setEnCours(false);
     if (erreurInit) {
