@@ -135,7 +135,9 @@ function PageLitiges() {
     }
     setEnCours(true);
     const { error } = await supabase.from("litiges").insert({
-      ...parsed.data,
+      parcelle_id: parsed.data.parcelle_id,
+      objet: parsed.data.objet,
+      parties: parsed.data.parties ?? null,
       plainte_id: plainteId === "aucune" ? null : plainteId,
       numero: genererNumero("LIT"),
       created_by: user?.id ?? null,

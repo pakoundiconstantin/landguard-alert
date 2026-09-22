@@ -112,7 +112,10 @@ function PageDecisions() {
     }
     setEnCours(true);
     const { error } = await supabase.from("decisions").insert({
-      ...parsed.data,
+      litige_id: parsed.data.litige_id,
+      tribunal: parsed.data.tribunal,
+      resume: parsed.data.resume,
+      document_url: parsed.data.document_url ?? null,
       numero: genererNumero("DEC"),
       created_by: user?.id ?? null,
     });

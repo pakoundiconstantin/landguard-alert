@@ -127,7 +127,11 @@ function PagePlaintes() {
     }
     setEnCours(true);
     const { error } = await supabase.from("plaintes").insert({
-      ...parsed.data,
+      parcelle_id: parsed.data.parcelle_id,
+      plaignant: parsed.data.plaignant,
+      motif: parsed.data.motif,
+      partie_adverse: parsed.data.partie_adverse ?? null,
+      description: parsed.data.description ?? null,
       numero: genererNumero("PL"),
       created_by: user?.id ?? null,
     });

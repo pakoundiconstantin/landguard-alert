@@ -132,7 +132,17 @@ function PageParcelles() {
     }
     setEnCours(true);
     const { error } = await supabase.from("parcelles").insert({
-      ...parsed.data,
+      code_parcelle: parsed.data.code_parcelle,
+      reference_cadastrale: parsed.data.reference_cadastrale,
+      prefecture: parsed.data.prefecture,
+      commune: parsed.data.commune,
+      superficie_m2: parsed.data.superficie_m2,
+      latitude: parsed.data.latitude,
+      longitude: parsed.data.longitude,
+      localite: parsed.data.localite ?? null,
+      proprietaire: parsed.data.proprietaire ?? null,
+      type_titre: parsed.data.type_titre ?? null,
+      observations: parsed.data.observations ?? null,
       created_by: user?.id ?? null,
     });
     setEnCours(false);
