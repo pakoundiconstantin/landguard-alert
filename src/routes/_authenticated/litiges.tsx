@@ -157,9 +157,14 @@ function PageLitiges() {
   }
 
   async function changerStatut(id: string, valeur: string) {
-    const maj: Record<string, unknown> = { statut: valeur };
-    if (["resolu", "cloture"].includes(valeur)) maj.date_cloture = new Date().toISOString().slice(0, 10);
-    const { error } = await supabase.from("litiges").update(maj).eq("id", id);
+    const cloture = ["resolu", "cloture"].includes(valeur);
+    const { error } = await supabase
+      .from("litiges")
+      .update({
+        statut: valeur as "nouveau",
+        date_cloture: cloture ? new Date().toISOString().slice(0, 10) : null,
+      })
+      .eq("id", id);
     if (error) {
       toast.error("Modification impossible.");
       return;
