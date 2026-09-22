@@ -496,6 +496,15 @@ export type Database = {
         }
         Returns: boolean
       }
+      initialiser_compte: {
+        Args: {
+          _fonction?: string
+          _nom_complet: string
+          _prefecture?: string
+          _role?: Database["public"]["Enums"]["app_role"]
+        }
+        Returns: Database["public"]["Enums"]["app_role"]
+      }
     }
     Enums: {
       app_role: "administrateur" | "cadastre" | "tribunal" | "consultation"
