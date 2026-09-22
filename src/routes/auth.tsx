@@ -112,8 +112,8 @@ function PageAuth() {
 
     const { data: roleAttribue, error: erreurInit } = await supabase.rpc("initialiser_compte", {
       _nom_complet: parsed.data.nomComplet,
-      _fonction: parsed.data.fonction ?? null,
-      _prefecture: prefecture || null,
+      _fonction: parsed.data.fonction || undefined,
+      _prefecture: prefecture || undefined,
       _role: role as "administrateur" | "cadastre" | "tribunal" | "consultation",
     });
 
