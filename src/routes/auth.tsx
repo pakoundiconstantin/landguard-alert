@@ -110,20 +110,23 @@ function PageAuth() {
       return;
     }
 
-    await supabase.from("profiles").insert({
-      id: data.user.id,
-      nom_complet: parsed.data.nomComplet,
-      email: parsed.data.email,
-      fonction: parsed.data.fonction ?? null,
-      prefecture: prefecture || null,
-    });
-    await supabase.from("user_roles").insert({
-      user_id: data.user.id,
-      role: role as "administrateur" | "cadastre" | "tribunal" | "consultation",
+    const { data: roleAttribue, error: erreurInit } = await supabase.rpc("initialiser_compte", {
+      _nom_complet: parsed.data.nomComplet,
+      _fonction: parsed.data.fonction ?? null,
+      _prefecture: prefecture || null,
+      _role: role as "administrateur" | "cadastre" | "tribunal" | "consultation",
     });
 
     setEnCours(false);
-    toast.success("Compte créé. Bienvenue sur la plateforme.");
+    if (erreurInit) {
+      toast.error("Le profil n'a pas pu être initialisé. Contactez l'administrateur.");
+      return;
+    }
+    if (role === "administrateur" && roleAttribue !== "administrateur") {
+      toast.success("Compte créé en consultation : un administrateur existe déjà et doit valider votre rôle.");
+    } else {
+      toast.success("Compte créé. Bienvenue sur la plateforme.");
+    }
     navigate({ to: "/tableau-de-bord" });
   }
 
