@@ -1,0 +1,62 @@
+:root {
+  --bg: #0f172a;
+  --primary: #22c55e;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --panel: #111827;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+.brand {
+  font-size: 2rem;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+nav a {
+  color: var(--muted);
+  margin-left: 1rem;
+  text-decoration: none;
+}
+
+.hero {
+  background: var(--panel);
+  padding: 2rem;
+  border-radius: 1.2rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: #1f2937;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}

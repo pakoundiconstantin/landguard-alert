@@ -1,0 +1,1 @@
+.auth-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}.auth-card select{width:100%;border:1px solid var(--line);border-radius:6px;padding:11px 12px;font:14px 'DM Sans';color:var(--ink);background:#fbfdfb}.auth-card select:focus{outline:2px solid rgba(22,115,90,.2);border-color:var(--green)}@media(max-width:600px){.auth-row{grid-template-columns:1fr;gap:15px}}

@@ -1,0 +1,23 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ titre }} · SIG Foncier Maritime</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'app.css' %}">
+  <link rel="stylesheet" href="{% static 'auth.css' %}">
+</head>
+<body class="auth-page">
+  <main class="auth-layout">
+    <section class="auth-intro"><a class="brand" href="{% url 'home' %}"><span class="brand-mark">⌖</span><span>SIG Foncier<br><small>Maritime · Sud-Togo</small></span></a><div><div class="eyebrow" style="color:var(--lime)">Espace sécurisé</div><h1>La donnée foncière, au bon endroit.</h1><p>Accédez à la carte, aux dossiers de litiges et aux alertes de la région Maritime.</p></div></section>
+    <section class="auth-card"><div class="eyebrow">{{ titre }}</div><h2>{% if mode == 'connexion' %}Bienvenue dans LandGuard{% else %}Créer votre accès{% endif %}</h2><p class="auth-muted">{% if mode == 'connexion' %}Connectez-vous pour accéder à votre espace de travail.{% else %}Votre compte sera créé avec le rôle consultation.{% endif %}</p>
+      {% if erreur %}<div class="form-error">{{ erreur }}</div>{% endif %}
+      {% if mode == 'connexion' %}<form method="post">{% csrf_token %}<label>Nom d'utilisateur<input name="username" required autofocus></label><label>Mot de passe<input type="password" name="password" required></label><button class="button primary auth-submit" type="submit">Se connecter</button></form><p class="auth-switch">Pas encore de compte ? <a href="{% url 'inscription' %}">Créer un compte</a></p>{% else %}<form method="post">{% csrf_token %}<label>Nom complet{{ formulaire.nom_complet }}{% if formulaire.nom_complet.errors %}<span class="field-error">{{ formulaire.nom_complet.errors|striptags }}</span>{% endif %}</label><div class="auth-row"><label>Profil{{ formulaire.role }}</label><label>Préfecture{{ formulaire.prefecture }}</label></div><label>Adresse e-mail{{ formulaire.email }}{% if formulaire.email.errors %}<span class="field-error">{{ formulaire.email.errors|striptags }}</span>{% endif %}</label><label>Mot de passe{{ formulaire.password }}{% if formulaire.password.errors %}<span class="field-error">{{ formulaire.password.errors|striptags }}</span>{% endif %}</label><button class="button primary auth-submit" type="submit">Créer le compte</button></form><p class="auth-switch">Vous avez déjà un compte ? <a href="{% url 'connexion' %}">Se connecter</a></p>{% endif %}
+    </section>
+  </main>
+</body>
+</html>

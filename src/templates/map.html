@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load l10n %}
+{% block head %}<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">Web-GIS · Région Maritime</div><h1>Carte des parcelles</h1><p>Visualisez les parcelles enregistrées et leur état de suivi.</p></div><a class="button" href="{% url 'parcelles' %}">▦ Vue tableau</a></div>
+<div class="map-shell"><section class="panel map-list"><h2>Parcelles cartographiées</h2><p class="panel-intro">{{ objets|length }} parcelle(s) disponible(s)</p>{% for objet in objets %}<article><strong>{{ objet.numero }}</strong><span>{{ objet.commune }} · {{ objet.prefecture }}</span><span class="badge {% if objet.statut == 'en_litige' %}red{% elif objet.statut == 'decision_rendue' %}amber{% endif %}">{{ objet.statut }}</span></article>{% empty %}<div class="empty">Aucune parcelle à afficher.</div>{% endfor %}</section><div id="map" class="map-card"></div></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+{% localize off %}<script>
+	const map = L.map('map').setView([6.35, 1.3], 9);
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+	const points = [{% for objet in objets %}{ lat: {{ objet.geom.lat|default:6.35 }}, lng: {{ objet.geom.lng|default:1.3 }}, label: '{{ objet.numero|escapejs }}', commune: '{{ objet.commune|escapejs }}' }{% if not forloop.last %},{% endif %}{% endfor %}];
+	points.forEach((point) => L.marker([point.lat, point.lng]).addTo(map).bindPopup('<strong>' + point.label + '</strong><br>' + point.commune));
+</script>
+{% endlocalize %}
+{% endblock %}

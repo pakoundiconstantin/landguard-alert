@@ -1,0 +1,47 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ titre }} · SIG Foncier Maritime</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'app.css' %}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="{% url 'home' %}"><span class="brand-mark">⌖</span><span>SIG Foncier<br><small>Maritime · Sud-Togo</small></span></a>
+      <nav class="nav-list">
+        <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">⌂ <span>Tableau de bord</span></a>
+        <a href="{% url 'carte' %}" class="{% if request.path == '/carte/' %}active{% endif %}">⌖ <span>Carte des parcelles</span></a>
+        {% if request.user.is_authenticated and request.user.role in 'admin,tribunal,cadastre,consultation' %}
+          <a href="{% url 'parcelles' %}" class="{% if request.path == '/parcelles/' %}active{% endif %}">▦ <span>Parcelles</span></a>
+        {% endif %}
+        {% if request.user.role == 'admin' or request.user.role == 'tribunal' %}
+          <a href="{% url 'plaintes' %}" class="{% if request.path == '/plaintes/' %}active{% endif %}">▤ <span>Plaintes</span></a>
+        {% endif %}
+        {% if request.user.role == 'admin' or request.user.role == 'tribunal' or request.user.role == 'cadastre' or request.user.role == 'consultation' %}
+          <a href="{% url 'litiges' %}" class="{% if request.path == '/litiges/' %}active{% endif %}">⚖ <span>Litiges</span></a>
+        {% endif %}
+        {% if request.user.role == 'admin' or request.user.role == 'tribunal' or request.user.role == 'cadastre' or request.user.role == 'consultation' %}
+          <a href="{% url 'decisions' %}" class="{% if request.path == '/decisions/' %}active{% endif %}">✓ <span>Décisions judiciaires</span></a>
+        {% endif %}
+        {% if request.user.role == 'admin' or request.user.role == 'tribunal' or request.user.role == 'cadastre' or request.user.role == 'consultation' %}
+          <a href="{% url 'alertes' %}" class="{% if request.path == '/alertes/' %}active{% endif %}">! <span>Alertes</span></a>
+        {% endif %}
+      </nav>
+      <div class="sidebar-footer"><strong>LandGuard</strong><span>Système de veille foncière</span></div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><div class="mobile-brand">SIG Foncier Maritime</div><div class="topbar-actions"><span class="status-dot"></span> Système opérationnel {% if request.user.is_authenticated %}<span>{{ request.user.get_full_name|default:request.user.username }}</span><span class="user-role">{{ request.user.get_role_display }}</span>{% if request.user.role == 'admin' %}<a class="outline-button" href="{% url 'admin:index' %}">Administration</a>{% endif %}<a class="outline-button" href="{% url 'deconnexion' %}">Déconnexion</a>{% else %}<a class="outline-button" href="{% url 'connexion' %}">Connexion</a>{% endif %}</div></header>
+      <div class="page-content">{% block content %}{% endblock %}</div>
+      {% if messages %}<div class="flash-messages">{% for message in messages %}<div class="flash-message">{{ message }}</div>{% endfor %}</div>{% endif %}
+      {% block scripts %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

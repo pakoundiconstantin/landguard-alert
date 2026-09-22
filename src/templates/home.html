@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LandGuard - Dashboard</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --panel: #111827;
+        --card: #1f2937;
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --primary: #22c55e;
+        --accent: #38bdf8;
+        --danger: #f87171;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #020817, #0f172a 40%, #111827);
+        color: var(--text);
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0 40px;
+      }
+      .brand {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--primary);
+      }
+      .nav {
+        display: flex;
+        gap: 16px;
+        color: var(--muted);
+      }
+      .nav a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .hero {
+        background: rgba(17, 24, 39, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+      }
+      .hero h1 {
+        margin: 0 0 15px;
+        font-size: 2.8rem;
+      }
+      .hero p {
+        color: var(--muted);
+        font-size: 1.1rem;
+        max-width: 720px;
+      }
+      .cta {
+        margin-top: 25px;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        background: var(--primary);
+        color: #052e16;
+        padding: 12px 22px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .btn.secondary {
+        background: transparent;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        color: var(--text);
+      }
+      .grid {
+        margin-top: 35px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+      }
+      .card {
+        background: rgba(31, 41, 55, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-radius: 18px;
+        padding: 22px;
+      }
+      .card .label {
+        color: var(--muted);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+      }
+      .card .value {
+        margin-top: 10px;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+      .card.alert .value { color: var(--danger); }
+      .card.info .value { color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="brand">LandGuard</div>
+        <nav class="nav">
+          <a href="#">Parcelles</a>
+          <a href="#">Plaintes</a>
+          <a href="#">Litiges</a>
+          <a href="#">Décisions</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <h1>Système d’alerte foncière</h1>
+        <p>
+          Plateforme de suivi des parcelles, plaintes, litiges fonciers et avis de décisions
+          pour la gestion territoriale et la prévention des conflits fonciers.
+        </p>
+        <div class="cta">
+          <a class="btn" href="#">Voir le tableau de bord</a>
+          <a class="btn secondary" href="#">Gérer les litiges</a>
+        </div>
+      </section>
+
+      <div class="grid">
+        <div class="card info">
+          <div class="label">Parcelles</div>
+          <div class="value">1,248</div>
+        </div>
+        <div class="card">
+          <div class="label">Plaintes</div>
+          <div class="value">96</div>
+        </div>
+        <div class="card">
+          <div class="label">Litiges</div>
+          <div class="value">42</div>
+        </div>
+        <div class="card alert">
+          <div class="label">Alertes</div>
+          <div class="value">18</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

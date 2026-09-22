@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">Workflow foncier</div><h1>{{ titre }}</h1><p>{% if type_formulaire == 'plainte' %}Enregistrez le dossier judiciaire et transmettez-le au cadastre.{% else %}Positionnez la parcelle, bloquez le dossier et envoyez-le à validation.{% endif %}</p></div>{% if type_formulaire == 'plainte' %}<a class="button" href="{% url 'plaintes' %}">Retour</a>{% else %}<a class="button" href="{% url 'litiges' %}">Retour</a>{% endif %}</div>
+<form method="post" enctype="multipart/form-data" class="form-panel">{% csrf_token %}
+  {% if formulaire.non_field_errors %}<div class="form-error">{{ formulaire.non_field_errors }}</div>{% endif %}
+  {% if type_formulaire == 'plainte' %}
+  <section><h2>Identification du dossier</h2><div class="form-grid">{% for field in formulaire %}{% if field.name == 'numero' or field.name == 'parcelle' or field.name == 'type_plainte' or field.name == 'type_litige' %}<label class="field">{{ field.label }}{{ field }}{{ field.errors }}</label>{% endif %}{% endfor %}</div></section>
+  <section><h2>Demandeur</h2><div class="form-grid">{% for field in formulaire %}{% if 'demandeur' in field.name %}<label class="field {% if 'adresse' in field.name %}wide{% endif %}">{{ field.label }}{{ field }}{{ field.errors }}</label>{% endif %}{% endfor %}</div></section>
+  <section><h2>Opposant</h2><div class="form-grid">{% for field in formulaire %}{% if 'opposant' in field.name %}<label class="field {% if 'adresse' in field.name %}wide{% endif %}">{{ field.label }}{{ field }}{{ field.errors }}</label>{% endif %}{% endfor %}</div></section>
+  <section><h2>Faits et pièces justificatives</h2><div class="form-grid">{% for field in formulaire %}{% if field.name == 'description' or field.name == 'plan_parcellaire' or field.name == 'titre_foncier' %}<label class="field {% if field.name == 'description' %}wide{% endif %}">{{ field.label }}{{ field }}{{ field.errors }}</label>{% endif %}{% endfor %}</div></section>
+  {% elif type_formulaire == 'validation' %}
+  <section><h2>Réponse administrative</h2><div class="form-grid">{% for field in formulaire %}<label class="field wide">{{ field.label }}{{ field }}{{ field.errors }}</label>{% endfor %}</div></section>
+  {% else %}<section><h2>Position cadastrale</h2><div class="form-grid">{% for field in formulaire %}<label class="field {% if field.name == 'commentaire' %}wide{% endif %}">{{ field.label }}{{ field }}{{ field.errors }}</label>{% endfor %}</div></section>{% endif %}
+  <button class="button primary" type="submit">{% if type_formulaire == 'plainte' %}Enregistrer et transmettre{% elif type_formulaire == 'validation' %}Valider le dossier{% else %}Positionner et bloquer la parcelle{% endif %}</button>
+</form>
+{% endblock %}
