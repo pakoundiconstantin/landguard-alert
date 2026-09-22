@@ -149,7 +149,10 @@ function PagePlaintes() {
       .from("plaintes")
       .update({ statut: valeur as "enregistree" })
       .eq("id", id);
-    if (error) return toast.error("Modification impossible.");
+    if (error) {
+      toast.error("Modification impossible.");
+      return;
+    }
     toast.success("Statut mis à jour");
     void queryClient.invalidateQueries({ queryKey: ["plaintes"] });
   }

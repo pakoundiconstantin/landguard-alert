@@ -52,7 +52,10 @@ function PageAlertes() {
       .from("alertes")
       .update({ traitee: true, traitee_par: user?.id ?? null, traitee_le: new Date().toISOString() })
       .eq("id", id);
-    if (error) return toast.error("Traitement impossible.");
+    if (error) {
+      toast.error("Traitement impossible.");
+      return;
+    }
     toast.success("Alerte marquée comme traitée");
     void queryClient.invalidateQueries({ queryKey: ["alertes"] });
     void queryClient.invalidateQueries({ queryKey: ["tableau-de-bord"] });

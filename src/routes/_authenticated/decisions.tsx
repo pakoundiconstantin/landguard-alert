@@ -117,7 +117,10 @@ function PageDecisions() {
       created_by: user?.id ?? null,
     });
     setEnCours(false);
-    if (error) return toast.error("Enregistrement impossible.");
+    if (error) {
+      toast.error("Enregistrement impossible.");
+      return;
+    }
     toast.success("Décision enregistrée — le litige et la parcelle sont mis à jour.");
     setOuvert(false);
     setLitigeId("");
@@ -131,7 +134,10 @@ function PageDecisions() {
       .from("decisions")
       .update({ statut: "transmise", date_transmission: new Date().toISOString() })
       .eq("id", id);
-    if (error) return toast.error("Transmission impossible.");
+    if (error) {
+      toast.error("Transmission impossible.");
+      return;
+    }
     toast.success("Décision transmise au cadastre.");
     void queryClient.invalidateQueries({ queryKey: ["decisions"] });
   }

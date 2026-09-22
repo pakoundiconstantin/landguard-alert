@@ -141,7 +141,10 @@ function PageLitiges() {
       created_by: user?.id ?? null,
     });
     setEnCours(false);
-    if (error) return toast.error("Création impossible.");
+    if (error) {
+      toast.error("Création impossible.");
+      return;
+    }
     toast.success("Litige ouvert — la parcelle est signalée en litige.");
     setOuvert(false);
     setParcelleId("");
@@ -155,7 +158,10 @@ function PageLitiges() {
     const maj: Record<string, unknown> = { statut: valeur };
     if (["resolu", "cloture"].includes(valeur)) maj.date_cloture = new Date().toISOString().slice(0, 10);
     const { error } = await supabase.from("litiges").update(maj).eq("id", id);
-    if (error) return toast.error("Modification impossible.");
+    if (error) {
+      toast.error("Modification impossible.");
+      return;
+    }
     toast.success("Statut du litige mis à jour — alerte générée.");
     ["litiges", "parcelles", "parcelles-carte", "alertes", "notifications", "tableau-de-bord"].forEach(
       (k) => queryClient.invalidateQueries({ queryKey: [k] }),

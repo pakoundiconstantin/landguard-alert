@@ -86,14 +86,20 @@ function PageAdministration() {
   async function changerRole(userId: string, role: RoleValue) {
     await supabase.from("user_roles").delete().eq("user_id", userId);
     const { error } = await supabase.from("user_roles").insert({ user_id: userId, role });
-    if (error) return toast.error("Modification du rôle impossible.");
+    if (error) {
+      toast.error("Modification du rôle impossible.");
+      return;
+    }
     toast.success("Rôle mis à jour");
     void queryClient.invalidateQueries({ queryKey: ["utilisateurs"] });
   }
 
   async function basculerActif(userId: string, actif: boolean) {
     const { error } = await supabase.from("profiles").update({ actif }).eq("id", userId);
-    if (error) return toast.error("Modification impossible.");
+    if (error) {
+      toast.error("Modification impossible.");
+      return;
+    }
     toast.success(actif ? "Compte activé" : "Compte désactivé");
     void queryClient.invalidateQueries({ queryKey: ["utilisateurs"] });
   }
