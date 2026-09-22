@@ -10,33 +10,170 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAdministrationRouteImport } from './routes/_authenticated/administration'
+import { Route as AuthenticatedAlertesRouteImport } from './routes/_authenticated/alertes'
+import { Route as AuthenticatedCarteRouteImport } from './routes/_authenticated/carte'
+import { Route as AuthenticatedDecisionsRouteImport } from './routes/_authenticated/decisions'
+import { Route as AuthenticatedLitigesRouteImport } from './routes/_authenticated/litiges'
+import { Route as AuthenticatedPlaintesRouteImport } from './routes/_authenticated/plaintes'
+import { Route as AuthenticatedTableauDeBordRouteImport } from './routes/_authenticated/tableau-de-bord'
+import { Route as AuthenticatedParcellesIndexRouteImport } from './routes/_authenticated/parcelles.index'
+import { Route as AuthenticatedParcellesIdRouteImport } from './routes/_authenticated/parcelles.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdministrationRoute =
+  AuthenticatedAdministrationRouteImport.update({
+    id: '/administration',
+    path: '/administration',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAlertesRoute = AuthenticatedAlertesRouteImport.update({
+  id: '/alertes',
+  path: '/alertes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCarteRoute = AuthenticatedCarteRouteImport.update({
+  id: '/carte',
+  path: '/carte',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDecisionsRoute = AuthenticatedDecisionsRouteImport.update({
+  id: '/decisions',
+  path: '/decisions',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedLitigesRoute = AuthenticatedLitigesRouteImport.update({
+  id: '/litiges',
+  path: '/litiges',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPlaintesRoute = AuthenticatedPlaintesRouteImport.update({
+  id: '/plaintes',
+  path: '/plaintes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTableauDeBordRoute =
+  AuthenticatedTableauDeBordRouteImport.update({
+    id: '/tableau-de-bord',
+    path: '/tableau-de-bord',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedParcellesIndexRoute =
+  AuthenticatedParcellesIndexRouteImport.update({
+    id: '/parcelles/',
+    path: '/parcelles/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedParcellesIdRoute =
+  AuthenticatedParcellesIdRouteImport.update({
+    id: '/parcelles/$id',
+    path: '/parcelles/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/administration': typeof AuthenticatedAdministrationRoute
+  '/alertes': typeof AuthenticatedAlertesRoute
+  '/carte': typeof AuthenticatedCarteRoute
+  '/decisions': typeof AuthenticatedDecisionsRoute
+  '/litiges': typeof AuthenticatedLitigesRoute
+  '/plaintes': typeof AuthenticatedPlaintesRoute
+  '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/parcelles/$id': typeof AuthenticatedParcellesIdRoute
+  '/parcelles/': typeof AuthenticatedParcellesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/administration': typeof AuthenticatedAdministrationRoute
+  '/alertes': typeof AuthenticatedAlertesRoute
+  '/carte': typeof AuthenticatedCarteRoute
+  '/decisions': typeof AuthenticatedDecisionsRoute
+  '/litiges': typeof AuthenticatedLitigesRoute
+  '/plaintes': typeof AuthenticatedPlaintesRoute
+  '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/parcelles/$id': typeof AuthenticatedParcellesIdRoute
+  '/parcelles': typeof AuthenticatedParcellesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/administration': typeof AuthenticatedAdministrationRoute
+  '/_authenticated/alertes': typeof AuthenticatedAlertesRoute
+  '/_authenticated/carte': typeof AuthenticatedCarteRoute
+  '/_authenticated/decisions': typeof AuthenticatedDecisionsRoute
+  '/_authenticated/litiges': typeof AuthenticatedLitigesRoute
+  '/_authenticated/plaintes': typeof AuthenticatedPlaintesRoute
+  '/_authenticated/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/_authenticated/parcelles/$id': typeof AuthenticatedParcellesIdRoute
+  '/_authenticated/parcelles/': typeof AuthenticatedParcellesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/administration'
+    | '/alertes'
+    | '/carte'
+    | '/decisions'
+    | '/litiges'
+    | '/plaintes'
+    | '/tableau-de-bord'
+    | '/parcelles/$id'
+    | '/parcelles/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/administration'
+    | '/alertes'
+    | '/carte'
+    | '/decisions'
+    | '/litiges'
+    | '/plaintes'
+    | '/tableau-de-bord'
+    | '/parcelles/$id'
+    | '/parcelles'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/administration'
+    | '/_authenticated/alertes'
+    | '/_authenticated/carte'
+    | '/_authenticated/decisions'
+    | '/_authenticated/litiges'
+    | '/_authenticated/plaintes'
+    | '/_authenticated/tableau-de-bord'
+    | '/_authenticated/parcelles/$id'
+    | '/_authenticated/parcelles/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +185,117 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/administration': {
+      id: '/_authenticated/administration'
+      path: '/administration'
+      fullPath: '/administration'
+      preLoaderRoute: typeof AuthenticatedAdministrationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/alertes': {
+      id: '/_authenticated/alertes'
+      path: '/alertes'
+      fullPath: '/alertes'
+      preLoaderRoute: typeof AuthenticatedAlertesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/carte': {
+      id: '/_authenticated/carte'
+      path: '/carte'
+      fullPath: '/carte'
+      preLoaderRoute: typeof AuthenticatedCarteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/decisions': {
+      id: '/_authenticated/decisions'
+      path: '/decisions'
+      fullPath: '/decisions'
+      preLoaderRoute: typeof AuthenticatedDecisionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/litiges': {
+      id: '/_authenticated/litiges'
+      path: '/litiges'
+      fullPath: '/litiges'
+      preLoaderRoute: typeof AuthenticatedLitigesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/plaintes': {
+      id: '/_authenticated/plaintes'
+      path: '/plaintes'
+      fullPath: '/plaintes'
+      preLoaderRoute: typeof AuthenticatedPlaintesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tableau-de-bord': {
+      id: '/_authenticated/tableau-de-bord'
+      path: '/tableau-de-bord'
+      fullPath: '/tableau-de-bord'
+      preLoaderRoute: typeof AuthenticatedTableauDeBordRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/parcelles/': {
+      id: '/_authenticated/parcelles/'
+      path: '/parcelles'
+      fullPath: '/parcelles/'
+      preLoaderRoute: typeof AuthenticatedParcellesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/parcelles/$id': {
+      id: '/_authenticated/parcelles/$id'
+      path: '/parcelles/$id'
+      fullPath: '/parcelles/$id'
+      preLoaderRoute: typeof AuthenticatedParcellesIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdministrationRoute: typeof AuthenticatedAdministrationRoute
+  AuthenticatedAlertesRoute: typeof AuthenticatedAlertesRoute
+  AuthenticatedCarteRoute: typeof AuthenticatedCarteRoute
+  AuthenticatedDecisionsRoute: typeof AuthenticatedDecisionsRoute
+  AuthenticatedLitigesRoute: typeof AuthenticatedLitigesRoute
+  AuthenticatedPlaintesRoute: typeof AuthenticatedPlaintesRoute
+  AuthenticatedTableauDeBordRoute: typeof AuthenticatedTableauDeBordRoute
+  AuthenticatedParcellesIdRoute: typeof AuthenticatedParcellesIdRoute
+  AuthenticatedParcellesIndexRoute: typeof AuthenticatedParcellesIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdministrationRoute: AuthenticatedAdministrationRoute,
+  AuthenticatedAlertesRoute: AuthenticatedAlertesRoute,
+  AuthenticatedCarteRoute: AuthenticatedCarteRoute,
+  AuthenticatedDecisionsRoute: AuthenticatedDecisionsRoute,
+  AuthenticatedLitigesRoute: AuthenticatedLitigesRoute,
+  AuthenticatedPlaintesRoute: AuthenticatedPlaintesRoute,
+  AuthenticatedTableauDeBordRoute: AuthenticatedTableauDeBordRoute,
+  AuthenticatedParcellesIdRoute: AuthenticatedParcellesIdRoute,
+  AuthenticatedParcellesIndexRoute: AuthenticatedParcellesIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
