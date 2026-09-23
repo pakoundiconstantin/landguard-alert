@@ -1,6 +1,13 @@
 # Land Dispute Sentinel
 
 aide moi a developper cette application bien professionnelle c'est pour ma soutenance 
+
+## Organisation du projet
+
+Le dépôt est organisé par responsabilité afin de faciliter la maintenance et la présentation du projet.
+
+Les détails de l'architecture et les règles de rangement sont décrits dans [`docs/architecture.md`](docs/architecture.md).
+
 # CAHIER DES CHARGES
 
 ## Mise en place d’un système d’alerte SIG Web pour la gestion des litiges fonciers en lien avec le cadastre
@@ -1179,5 +1186,6 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-#   a n d g u a r d - a l e r t  
+#   a n d g u a r d - a l e r t 
+ 
  
